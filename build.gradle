@@ -4,7 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
 
 war {
 	baseName = 'climbserver'
@@ -28,6 +28,7 @@ repositories {
 
 dependencies {
 	providedRuntime 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
+	//classpath 'com.bmuschko:gradle-tomcat-plugin:2.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -36,4 +37,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	def tomcatVersion = '8.0.42'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
