@@ -18,7 +18,7 @@ public class GetController {
     }
 }
 @RestController
-public class getUsers {
+class getUsers {
 
 		   @GetMapping("/allUsers")
     public String allUsers(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
