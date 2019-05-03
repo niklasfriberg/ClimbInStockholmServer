@@ -21,15 +21,40 @@ public class GetController {
 	@GetMapping("/allUsers")
 	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
 			Model model) {
-		model.addAttribute("name", name);
-		return "vahab kom igen!";
+		return getAllUsers();
+	}
+
+	@GetMapping("/getUser")
+	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String name) {
+		return getUserSQL(name);
+	}
+
+	public String getUserSQL(String id) {
+		StringBuilder user = new StringBuilder();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
+					"lie1NaWaeWai");
+			Statement stmt = con.createStatement();
+			String sql = "Select * from Users where Name='"+id+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
+			}
+			con.close();
+		} catch (Exception e) {
+			user.append(e);
+		}
+		return user.toString();
 	}
 
 	public String getAllUsers() {
 		StringBuilder user = new StringBuilder();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
 			String sql = "Select * from Users";
