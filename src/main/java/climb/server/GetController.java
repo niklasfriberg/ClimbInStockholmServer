@@ -14,7 +14,7 @@ import climb.server.User; //testa
 public class GetController {
 
 	@GetMapping("/greetings")
-	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+	public String greetings(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
 			Model model) {
 		model.addAttribute("name", name);
 		return "greetings";
