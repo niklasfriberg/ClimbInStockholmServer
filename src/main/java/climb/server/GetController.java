@@ -36,7 +36,8 @@ public class GetController {
 	}
 
 	public String checkCredentials(String id, String pass){
-		return getFromDB(String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass));
+		String result = getFromDB(String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass));
+		return result + "\n" + String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass);
 	}
 
 	public String getUserSQL(String id) {
