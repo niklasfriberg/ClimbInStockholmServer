@@ -21,10 +21,10 @@ public class GetController {
 	@GetMapping("/allUsers")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		model.addAttribute("name", name);
-		return getAllUsers();
+		return getAllUser();
 	}
 
-	public String getAllUsers() {
+	public String getAllUser() {
 		StringBuilder user = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
