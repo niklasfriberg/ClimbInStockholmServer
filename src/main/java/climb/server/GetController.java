@@ -19,12 +19,13 @@ public class GetController {
 	}
 
 	@GetMapping("/allUsers")
-	public @ResponseBody Iterable<User> getAllUsers() {
+	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+			Model model) {
 		model.addAttribute("name", name);
-		return getAllUser();
+		return getAllUsers();
 	}
 
-	public String getAllUser() {
+	public String getAllUsers() {
 		StringBuilder user = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -36,7 +37,6 @@ public class GetController {
 			while (rs.next()) {
 				user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
 			}
-			con.close();
 		} catch (Exception e) {
 			System.out.print(e);
 		}
