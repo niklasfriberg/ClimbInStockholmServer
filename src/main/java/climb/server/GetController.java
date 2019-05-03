@@ -28,7 +28,7 @@ public class GetController {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			user.append("yay");
-			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245", "vady6245",
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
 			String sql = "Select * from Users";
