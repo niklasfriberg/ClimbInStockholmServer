@@ -28,15 +28,15 @@ public class GetController {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			user.append("yay");
-			// Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245", "vady6245",
-			// 		"lie1NaWaeWai");
-			// Statement stmt = con.createStatement();
-			// String sql = "Select * from Users";
-			// ResultSet rs = stmt.executeQuery(sql);
-			// while (rs.next()) {
-			// 	user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
-			// }
-			// con.close();
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245", "vady6245",
+					"lie1NaWaeWai");
+			Statement stmt = con.createStatement();
+			String sql = "Select * from Users";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
+			}
+			con.close();
 		} catch (Exception e) {
 			user.append(e);
 		}
