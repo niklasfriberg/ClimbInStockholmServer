@@ -24,7 +24,7 @@ public class GetController {
 	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
 			Model model) {
 		model.addAttribute("name", name);
-		return User.getAllUsers();
+		return "vahab kom igen!";
 	}
 
 //	public String getAllUsers() {
