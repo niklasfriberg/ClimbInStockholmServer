@@ -34,7 +34,7 @@ public class GetController {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
 			String sql = "Select * from Users where Name='"+id+"'";
@@ -54,7 +54,7 @@ public class GetController {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
 			String sql = "Select * from Users";
