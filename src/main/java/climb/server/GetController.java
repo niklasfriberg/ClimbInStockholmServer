@@ -19,8 +19,7 @@ public class GetController {
 	}
 
 	@GetMapping("/allUsers")
-	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model) {
+	public @ResponseBody Iterable<User> getAllUsers() {
 		model.addAttribute("name", name);
 		return getAllUsers();
 	}
