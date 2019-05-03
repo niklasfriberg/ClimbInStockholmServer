@@ -1,12 +1,13 @@
 package climb.server;
 
+import java.sql.*;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.sql.*;
+
 
 @RestController
 public class GetController {
@@ -16,15 +17,15 @@ public class GetController {
         model.addAttribute("name", name);
         return "greeting";
     }
-}
-@RestController
-class getUsers {
 
-		   @GetMapping("/allUsers")
+    @GetMapping("/allUsers")
     public String allUsers(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return getAllUsers();
-    }    
+    }
+    
+    
+
 	public String getAllUsers() {
 		StringBuilder user = null;
 		
@@ -43,5 +44,8 @@ class getUsers {
 		} catch (Exception e) {System.out.print(e);}
 		return user.toString();
 		}
-
 }
+
+
+
+
