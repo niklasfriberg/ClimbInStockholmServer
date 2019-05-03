@@ -13,11 +13,11 @@ import climb.server.User; //testa
 @RestController
 public class GetController {
 
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+	@GetMapping("/greetingvahab")
+	public String greetingvahab(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
 			Model model) {
 		model.addAttribute("name", name);
-		return "greeting";
+		return "greetingvahab";
 	}
 
 	@GetMapping("/allUsers")
