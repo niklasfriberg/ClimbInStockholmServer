@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetController {
 
 	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model) {
-		model.addAttribute("name", name);
+	public String greeting() {
 		return "greeting";
 	}
 
@@ -26,10 +24,10 @@ public class GetController {
 	}
 
 	public String getAllUsers() {
-		StringBuilder user = null;
+		StringBuilder user = new StringBuilder();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245", "vady6245",
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
 			String sql = "Select * from Users";
@@ -39,7 +37,7 @@ public class GetController {
 			}
 			con.close();
 		} catch (Exception e) {
-			System.out.print(e);
+			user.append(e);
 		}
 		return user.toString();
 	}
