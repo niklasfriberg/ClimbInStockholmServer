@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 import climb.server.User; //testa
 //import climb.server.UserRepository; //testa
 
-//@RestController
-//public class GetController {
-//
-//	@GetMapping("/greeting")
-//	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-//			Model model) {
-//		model.addAttribute("name", name);
-//		return "greeting";
-//	}
+@RestController
+public class GetController {
 
-//	@GetMapping("/allUsers")
-//	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-//			Model model) {
-//		model.addAttribute("name", name);
-//		return "vahab kom igen!";
-//	}
+	@GetMapping("/greeting")
+	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+			Model model) {
+		model.addAttribute("name", name);
+		return "greeting";
+	}
 
-//}
+	@GetMapping("/allUsers")
+	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+			Model model) {
+		model.addAttribute("name", name);
+		return "vahab kom igen!";
+	}
+
+}
