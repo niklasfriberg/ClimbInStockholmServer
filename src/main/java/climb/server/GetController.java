@@ -20,12 +20,12 @@ public class GetController {
 		return "greeting";
 	}
 
-	@GetMapping("/allUsers")
-	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model) {
-		model.addAttribute("name", name);
-		return "vahab kom igen!";
-	}
+//	@GetMapping("/allUsers")
+//	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+//			Model model) {
+//		model.addAttribute("name", name);
+//		return "vahab kom igen!";
+//	}
 
 //	public String getAllUsers() {
 //		StringBuilder user = null;
