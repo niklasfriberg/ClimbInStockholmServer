@@ -29,43 +29,41 @@ public class GetController {
 		return getUserSQL(name);
 	}
 
+	@GetMapping("/login")
+	public String login(@RequestParam(name = "user", required = true) String user,
+			@RequestParam(name = "pass", required = true) String passwd) {
+		return checkCredentials(user, passwd);
+	}
+
+	public String checkCredentials(String id, String pass){
+		return getFromDB(String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass));
+	}
+
 	public String getUserSQL(String id) {
-		StringBuilder user = new StringBuilder();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
-					"lie1NaWaeWai");
-			Statement stmt = con.createStatement();
-			String sql = "Select * from Users where Name='"+id+"'";
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
-			}
-			con.close();
-		} catch (Exception e) {
-			user.append(e);
-		}
-		return user.toString();
+		return getFromDB(String.format("Select * from Users where Name='%s'", id));
 	}
 
 	public String getAllUsers() {
-		StringBuilder user = new StringBuilder();
+			return getFromDB("Select * from Users");
+	}
+
+	public String getFromDB(String query) {
+		StringBuilder result = new StringBuilder();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
 					"lie1NaWaeWai");
 			Statement stmt = con.createStatement();
-			String sql = "Select * from Users";
-			ResultSet rs = stmt.executeQuery(sql);
+			// String sql = "Select * from Users";
+			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				user.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
+				result.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
 			}
 			con.close();
 		} catch (Exception e) {
-			user.append(e);
+			result.append(e);
 		}
-		return user.toString();
+		return result.toString();
 	}
 }
