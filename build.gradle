@@ -25,7 +25,7 @@ repositories {
 dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'com.fasterxml.jackson.core:jackson-core:2.2.+'
+	implementation 'com.fasterxml.jackson.core:jackson-core'
 	//implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
