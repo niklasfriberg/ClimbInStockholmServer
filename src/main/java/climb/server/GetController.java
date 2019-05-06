@@ -63,9 +63,11 @@ public class GetController {
 			int col = rsmd.getColumnCount();
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
-					result.append(rs.getString(i) + ", ");
+					result.append(rs.getString(i));
+					if (i < col + 1)
+						result.append(", ");
 				}
-				result.append("\n"+"end");
+				result.append("\n");
 			}
 			con.close();
 		} catch (Exception e) {
