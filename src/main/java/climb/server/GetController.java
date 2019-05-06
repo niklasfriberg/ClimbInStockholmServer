@@ -36,16 +36,17 @@ public class GetController {
 	}
 
 	public String checkCredentials(String id, String pass){
-		String result = getFromDB(String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass));
-		return result + "\n" + String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass);
+		String result = getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", id, pass));
+		return result;
+		// + "\n" + String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass);
 	}
 
 	public String getUserSQL(String id) {
-		return getFromDB(String.format("Select * from Users where Name='%s'", id));
+		return getFromDB(String.format("SELECT * FROM Users WHERE Name='%s'", id));
 	}
 
 	public String getAllUsers() {
-			return getFromDB("Select * from Users");
+			return getFromDB("SELECT * FROM Users");
 	}
 
 	public String getFromDB(String query) {
