@@ -62,10 +62,10 @@ public class GetController {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int col = rsmd.getColumnCount();
 			while (rs.next()) {
-				for (int i = 1; i == col; i++) {
+				for (int i = 1; i < col + 1; i++) {
 					result.append(rs.getString(i) + ", ");
 				}
-				result.append("\n");
+				result.append("\n"+"end");
 			}
 			con.close();
 		} catch (Exception e) {
