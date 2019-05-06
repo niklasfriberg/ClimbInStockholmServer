@@ -59,8 +59,13 @@ public class GetController {
 			Statement stmt = con.createStatement();
 			// String sql = "Select * from Users";
 			ResultSet rs = stmt.executeQuery(query);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int col = rsmd.getColumnCount();
 			while (rs.next()) {
-				result.append(rs.getString("Name") + ", " + rs.getString("Password") + "\n");
+				for (int i = 0; i < col; i++) {
+					result.append(rs.getString(i) + ", ");
+				}
+				result.append("\n");
 			}
 			con.close();
 		} catch (Exception e) {
