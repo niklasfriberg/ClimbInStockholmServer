@@ -64,7 +64,7 @@ public class GetController {
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
 					result.append(rs.getString(i));
-					if (i < col + 1)
+					if (i < col)
 						result.append(", ");
 				}
 				result.append("\n");
