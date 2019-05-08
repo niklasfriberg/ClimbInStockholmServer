@@ -1,6 +1,7 @@
 package climb.server;
 
 import java.sql.*;
+import org.json.*;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 // import climb.server.User; //testa
 //import climb.server.UserRepository; //testa
+
+import net.minidev.json.JSONObject;
 
 @RestController
 public class GetController {
@@ -51,6 +54,9 @@ public class GetController {
 
 	public String getFromDB(String query) {
 		StringBuilder result = new StringBuilder();
+		JSONObject json = new JSONObject();
+		json.appendField("hej", 2);
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
@@ -63,8 +69,11 @@ public class GetController {
 			int col = rsmd.getColumnCount();
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
+					json.appendField(rsmd.getColumnName(i), rs.getString(i));
 					result.append(rs.getString(i));
+					
 					if (i < col)
+
 						result.append(", ");
 				}
 				result.append("\n");
@@ -73,6 +82,7 @@ public class GetController {
 		} catch (Exception e) {
 			result.append(e);
 		}
-		return result.toString();
+		return json.toJSONString();
+		// return result.toString();
 	}
 }
