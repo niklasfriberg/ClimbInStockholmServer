@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PutControllerTests {
+public class DeleteControllerTests {
     PutController pC;
     DeleteController dC;
 
@@ -25,7 +25,7 @@ public class PutControllerTests {
     }
 
     @Test
-    public void updateUserTest() {
+    public void deleteUserTest() {
         GetController gC = new GetController();
         pC.putUser("testp", "test");
         sleep();
@@ -43,4 +43,5 @@ public class PutControllerTests {
 
         }
     }
+
 }

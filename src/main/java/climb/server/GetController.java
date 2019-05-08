@@ -14,14 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetController {
 
-	@GetMapping("/greeting")
-	public String greeting() {
-		return "greeting";
-	}
-
 	@GetMapping("/allUsers")
-	public String allUsers(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model) {
+	public String allUsers() {
 		return getAllUsers();
 	}
 
@@ -63,14 +57,13 @@ public class GetController {
 			int col = rsmd.getColumnCount();
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
-					json.put(rsmd.getColumnName(i), rs.getString(i));
+					json.accumulate(rsmd.getColumnName(i), rs.getString(i));
 					result.append(rs.getString(i));
 					
 					if (i < col)
 
 						result.append(", ");
 				}
-				result.append("\n");
 			}
 			con.close();
 		} catch (Exception e) {
