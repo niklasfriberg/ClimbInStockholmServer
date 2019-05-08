@@ -1,6 +1,7 @@
 package climb.server;
 
 import java.sql.*;
+import org.json.*;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -9,19 +10,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class PutController {
 
-    @PutMapping("/updateUser")
-    public String putUser(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
-    }
+	@PutMapping("/updateUser")
+	public void putUser(@RequestParam(name = "name", required = true) String name,
+			@RequestParam(name = "passwd", required = true) String password) {
+		updateDB(String.format("INSERT INTO Users VALUES (%s, %s)", name, password));
+	}
 
-    
+	public boolean updateDB(String query) {
+		int success = 1;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
+					"lie1NaWaeWai");
+			Statement stmt = con.createStatement();
+			// String sql = "Select * from Users";
+			success = stmt.executeUpdate(query);
+			con.close();
+		} catch (Exception e) {
+			return false;
+		}
+		if (success != 0)
+			return false;
+		return true;
+		// return result.toString();
+	}
+
 }
-
-
-
-

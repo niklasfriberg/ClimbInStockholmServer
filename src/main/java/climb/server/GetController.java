@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 // import climb.server.User; //testa
 //import climb.server.UserRepository; //testa
 
-import net.minidev.json.JSONObject;
-
 @RestController
 public class GetController {
 
@@ -39,9 +37,7 @@ public class GetController {
 	}
 
 	public String checkCredentials(String id, String pass){
-		String result = getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", id, pass));
-		return result;
-		// + "\n" + String.format("Select Name from Users where Name='%s' and Password='%s'", id, pass);
+		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", id, pass));
 	}
 
 	public String getUserSQL(String id) {
@@ -55,8 +51,6 @@ public class GetController {
 	public String getFromDB(String query) {
 		StringBuilder result = new StringBuilder();
 		JSONObject json = new JSONObject();
-		json.appendField("hej", 2);
-		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
@@ -69,7 +63,7 @@ public class GetController {
 			int col = rsmd.getColumnCount();
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
-					json.appendField(rsmd.getColumnName(i), rs.getString(i));
+					json.put(rsmd.getColumnName(i), rs.getString(i));
 					result.append(rs.getString(i));
 					
 					if (i < col)
@@ -82,7 +76,7 @@ public class GetController {
 		} catch (Exception e) {
 			result.append(e);
 		}
-		return json.toJSONString();
+		return json.toString();
 		// return result.toString();
 	}
 }
