@@ -14,41 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetController {
 
-	@GetMapping("/json")
-	public String getJson() {
-		return "json";
+	@GetMapping("/getMarkers")
+	public String getMarkers() {
+		return getFromDB("SELECT * FROM Crag");
+	}
+
+	@GetMapping("/getRoutes")
+	public String getRoutes(@RequestParam(name = "crag", required = true) String crag) {
+		return getFromDB(String.format("SELECT * FROM Route WHERE CragName = '%s'", crag));
 	}
 
 	@GetMapping("/allUsers")
-	public String allUsers() {
-		return getAllUsers();
+	public String getAllUsers() {
+		return getFromDB("SELECT * FROM Users");
 	}
 
 	@GetMapping("/getUser")
-	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String name) {
-		return getUserSQL(name);
+	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String id) {
+		return getFromDB(String.format("SELECT * FROM Users WHERE Name='%s'", id));
 	}
 
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "user", required = true) String user,
 			@RequestParam(name = "pass", required = true) String passwd) {
-		return checkCredentials(user, passwd);
+			return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", user, passwd));
 	}
 
-	public String checkCredentials(String id, String pass){
-		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", id, pass));
-	}
-
-	public String getUserSQL(String id) {
-		return getFromDB(String.format("SELECT * FROM Users WHERE Name='%s'", id));
-	}
-
-	public String getAllUsers() {
-			return getFromDB("SELECT * FROM Users");
-	}
 
 	public String getFromDB(String query) {
-		StringBuilder result = new StringBuilder();
 		JSONObject json = new JSONObject();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -63,16 +56,10 @@ public class GetController {
 			while (rs.next()) {
 				for (int i = 1; i < col + 1; i++) {
 					json.accumulate(rsmd.getColumnName(i), rs.getString(i));
-					result.append(rs.getString(i));
-					
-					if (i < col)
-
-						result.append(", ");
 				}
 			}
 			con.close();
 		} catch (Exception e) {
-			result.append(e);
 		}
 		return json.toString();
 		// return result.toString();

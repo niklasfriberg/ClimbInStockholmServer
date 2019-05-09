@@ -26,8 +26,19 @@ public class GetControllerTests {
 
     @Test
     public void getUsersTest() {
-        assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.allUsers());
+        assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.getAllUsers());
     }
+
+    @Test
+    public void getMarkersTest(){
+        assertEquals("{\"Beskrivning\":[\"berg1beskr\",\"berg2beskr\"],\"Longitud\":[\"111.0\",\"222.0\"],\"Latitud\":[\"111.0\",\"222.0\"],\"CragName\":[\"berg1\",\"berg2\"]}", gC.getMarkers());
+    }
+
+    @Test
+    public void getRoutesTest(){
+        assertEquals("{\"Svårighet\":[\"enkel\",\"omöjlig\"],\"Beskrivning\":[\"Detta klätterställe är för bebisar\",\"You will fall to your de4th\"],\"RouteName\":[\"route2\",\"route3\"],\"CragName\":[\"berg2\",\"berg2\"],\"Höjd\":[\"1.0\",\"55.0\"],\"Rep\":[\"1\",\"0\"]}", gC.getRoutes("berg2"));
+    }
+
     
 
 }
