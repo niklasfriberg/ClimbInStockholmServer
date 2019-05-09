@@ -26,7 +26,7 @@ public class GetControllerTests {
 
     @Test
     public void getUsersTest() {
-        assertEquals("{\"Name\":[\"vahab\",\"user\"],\"Password\":[\"123\",\"passw\"]}", gC.allUsers());
+        assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.allUsers());
     }
     
 

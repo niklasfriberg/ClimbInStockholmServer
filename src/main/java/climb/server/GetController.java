@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetController {
 
+	@GetMapping("/json")
+	public String getJson() {
+		return "json";
+	}
+
 	@GetMapping("/allUsers")
 	public String allUsers() {
 		return getAllUsers();
