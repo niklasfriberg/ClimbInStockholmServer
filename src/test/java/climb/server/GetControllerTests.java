@@ -39,6 +39,11 @@ public class GetControllerTests {
         assertEquals("{\"Svårighet\":[\"enkel\",\"omöjlig\"],\"Beskrivning\":[\"Detta klätterställe är för bebisar\",\"You will fall to your de4th\"],\"RouteName\":[\"route2\",\"route3\"],\"CragName\":[\"berg2\",\"berg2\"],\"Höjd\":[\"1.0\",\"55.0\"],\"Rep\":[\"1\",\"0\"]}", gC.getRoutes("berg2"));
     }
 
+    // @Test
+    // public void getCragTest(){
+    //     assertEquals("{\"Svårighet\":\"+16\",\"Beskrivning\":[\"berg1beskr\",\"Man måste ha ett långt rep med hjälm. Glöm inte hjälmen när du klättrar, annars kommer det göra ont när du ramlar, du kommer att ramla någon gång, så det säkra före det osäkra som vi säger. Lycka till!\"],\"Longitud\":\"18.063242\",\"RouteName\":\"route1\",\"Latitud\":\"59.364599\",\"CragName\":[\"berg1\",\"berg1\"],\"Höjd\":\"15.0\",\"Rep\":\"1\"}", gC.getCrag("berg2"));
+    // }
+
     
 
 }

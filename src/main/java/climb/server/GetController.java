@@ -19,6 +19,14 @@ public class GetController {
 		return getFromDB("SELECT * FROM Crag");
 	}
 
+	//Behöver lagas, fixa query
+	@GetMapping("/getCrag")
+	public String getCrag(@RequestParam(name = "crag", required = true) String crag) {
+		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s'", crag), 
+		String.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName = '%s'", crag));
+	}
+
+
 	@GetMapping("/getRoutes")
 	public String getRoutes(@RequestParam(name = "crag", required = true) String crag) {
 		return getFromDB(String.format("SELECT * FROM Route WHERE CragName = '%s'", crag));
@@ -40,6 +48,40 @@ public class GetController {
 			return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", user, passwd));
 	}
 
+	public String getCragFromDB(String queryCrag, String queryRoute) {
+		JSONObject jsonCrag = new JSONObject();
+		JSONObject jsonRoute = new JSONObject();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://mysql.dsv.su.se:3306/vady6245?useUnicode=true&serverTimezone=UTC", "vady6245",
+					"lie1NaWaeWai");
+			Statement stmtCrag = con.createStatement();
+			// String sql = "Select * from Users";
+			ResultSet rsCrag = stmtCrag.executeQuery(queryCrag);
+			ResultSetMetaData rsmdCrag = rsCrag.getMetaData();
+			int col = rsmdCrag.getColumnCount();
+			while (rsCrag.next()) {
+				for (int i = 1; i < col + 1; i++) {
+					jsonCrag.accumulate(rsmdCrag.getColumnName(i), rsCrag.getString(i));
+				}
+			}
+			Statement stmtRoute = con.createStatement();
+			ResultSet rsRoute = stmtRoute.executeQuery(queryRoute);
+			ResultSetMetaData rsmdRoute = rsRoute.getMetaData();
+			col = rsmdRoute.getColumnCount();
+			while (rsRoute.next()) {
+				for (int i = 1; i < col + 1; i++) {
+					jsonRoute.put(rsmdRoute.getColumnName(i), rsRoute.getString(i));
+				}
+				jsonCrag.accumulate("Route", jsonRoute.toString());
+			}
+			con.close();
+		} catch (Exception e) {
+		}
+		return jsonCrag.toString();
+		// return result.toString();
+	}
 
 	public String getFromDB(String query) {
 		JSONObject json = new JSONObject();
