@@ -26,6 +26,11 @@ public class GetController {
 		String.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName = '%s'", crag));
 	}
 
+	@GetMapping("/getMessages")
+	public String getAllMessages() {
+		return getFromDB("SELECT * FROM Messages");
+	}
+
 
 	@GetMapping("/getRoutes")
 	public String getRoutes(@RequestParam(name = "crag", required = true) String crag) {
@@ -79,6 +84,7 @@ public class GetController {
 				jsonCrag.accumulate("Route", jsonRoute);
 				jsonRoute = new JSONObject();
 			}
+			// IF single object in ROUTE get object and put to array
 			if (!jsonCrag.get("Route").getClass().equals(JSONArray.class)){
 				JSONObject temp = jsonCrag.getJSONObject("Route");
 				jsonRouteArray.put(temp);
