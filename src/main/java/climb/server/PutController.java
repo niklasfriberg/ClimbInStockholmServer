@@ -22,7 +22,7 @@ public class PutController {
 	@PutMapping("/putMessage")
 	public void putMessage(@RequestParam(name = "user", required = true) String user,
 	@RequestParam(name = "message", required = true) String message) {
-		updateDB(String.format("INSERT INTO (Username, Message) Messages VALUES ('%s', '%s')", user, message));
+		updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));
 	}
 
 	public boolean updateDB(String query) {
