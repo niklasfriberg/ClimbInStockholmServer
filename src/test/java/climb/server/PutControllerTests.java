@@ -25,6 +25,12 @@ public class PutControllerTests {
     }
 
     @Test
+    public void putMessageTest() {
+        pC.putMessage("user", "message");
+
+    }
+
+    @Test
     public void updateUserTest() {
         GetController gC = new GetController();
         pC.putUser("testp", "test");
