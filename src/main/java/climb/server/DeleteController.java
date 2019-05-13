@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PutController {
+public class DeleteController {
 
-	@PutMapping("/updateUser")
-	public void putUser(@RequestParam(name = "name", required = true) String name,
+	@PutMapping("/deleteUser")
+	public void deleteUser(@RequestParam(name = "name", required = true) String name,
 			@RequestParam(name = "passwd", required = true) String password) {
-		updateDB(String.format("INSERT INTO Users VALUES ('%s', '%s')", name, password));
+		updateDB(String.format("DELETE FROM Users WHERE Name = '%s'", name, password));
 	}
 
 	public boolean updateDB(String query) {
