@@ -21,9 +21,8 @@ public class PutController {
 
 	@PutMapping("/putMessage")
 	public void putMessage(@RequestParam(name = "user", required = true) String user,
-	@RequestParam(name = "message", required = true) String message,
-	@RequestParam(name = "date", required = true) String date) {
-		updateDB(String.format("INSERT INTO ('Username', 'Message', 'Date') Messages VALUES ('%s', '%s', '%s')", user, message, date));
+	@RequestParam(name = "message", required = true) String message) {
+		updateDB(String.format("INSERT INTO (Username, Message) Messages VALUES ('%s', '%s')", user, message));
 	}
 
 	public boolean updateDB(String query) {
