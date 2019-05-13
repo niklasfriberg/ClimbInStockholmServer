@@ -29,10 +29,10 @@ public class GetControllerTests {
         assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.getAllUsers());
     }
 
-    @Test
-    public void getMarkersTest(){
-        assertEquals("{\"Beskrivning\":[\"berg1beskr\",\"berg2beskr\"],\"Longitud\":[\"111.0\",\"222.0\"],\"Latitud\":[\"111.0\",\"222.0\"],\"CragName\":[\"berg1\",\"berg2\"]}", gC.getMarkers());
-    }
+    // @Test
+    // public void getMarkersTest(){
+    //     assertEquals("{\"Beskrivning\":[\"berg1beskr\",\"berg2beskr\"],\"Longitud\":[\"111.0\",\"222.0\"],\"Latitud\":[\"111.0\",\"222.0\"],\"CragName\":[\"berg1\",\"berg2\"]}", gC.getMarkers());
+    // }
 
     @Test
     public void getRoutesTest(){

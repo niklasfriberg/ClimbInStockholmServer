@@ -74,7 +74,8 @@ public class GetController {
 				for (int i = 1; i < col + 1; i++) {
 					jsonRoute.put(rsmdRoute.getColumnName(i), rsRoute.getString(i));
 				}
-				jsonCrag.accumulate("Route", jsonRoute.toString());
+				jsonCrag.accumulate("Route", jsonRoute);
+				jsonRoute = new JSONObject();
 			}
 			con.close();
 		} catch (Exception e) {
