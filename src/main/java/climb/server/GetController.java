@@ -51,6 +51,7 @@ public class GetController {
 	public String getCragFromDB(String queryCrag, String queryRoute) {
 		JSONObject jsonCrag = new JSONObject();
 		JSONObject jsonRoute = new JSONObject();
+		JSONArray jsonRouteArray = new JSONArray();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
@@ -74,8 +75,14 @@ public class GetController {
 				for (int i = 1; i < col + 1; i++) {
 					jsonRoute.put(rsmdRoute.getColumnName(i), rsRoute.getString(i));
 				}
+				
 				jsonCrag.accumulate("Route", jsonRoute);
 				jsonRoute = new JSONObject();
+			}
+			if (!jsonCrag.get("Route").getClass().equals(JSONArray.class)){
+				JSONObject temp = jsonCrag.getJSONObject("Route");
+				jsonRouteArray.put(temp);
+				jsonCrag.put("Route", jsonRouteArray);
 			}
 			con.close();
 		} catch (Exception e) {
