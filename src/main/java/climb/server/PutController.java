@@ -30,8 +30,8 @@ public class PutController {
 	}
 
 	@PutMapping("/putMessage")
-	public String putTheMessage(@RequestParam(name = "user", required = true) String user,
-	@RequestParam(name = "message", required = true) String message) {
+	public String putTheMessage(@RequestParam(name = "user", required = false) String user,
+	@RequestParam(name = "message", required = false) String message) {
 		try {updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));}
 		catch (Exception e) {
 			return e.toString();
