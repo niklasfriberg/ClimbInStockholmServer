@@ -19,8 +19,18 @@ public class PutController {
 		updateDB(String.format("INSERT INTO Users VALUES ('%s', '%s')", name, password));
 	}
 
-	@GetMapping("/putMessage")
+	@GetMapping("/getMessage")
 	public String putMessage(@RequestParam(name = "user", required = true) String user,
+	@RequestParam(name = "message", required = true) String message) {
+		try {updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));}
+		catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
+	@PutMapping("/putMessage")
+	public String putTheMessage(@RequestParam(name = "user", required = true) String user,
 	@RequestParam(name = "message", required = true) String message) {
 		try {updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));}
 		catch (Exception e) {
