@@ -1,6 +1,7 @@
 package climb.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -27,6 +28,12 @@ public class GetControllerTests {
     @Test
     public void getUsersTest() {
         assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.getAllUsers());
+    }
+
+    @Test
+    public void parserTest() {
+        Parser p = new Parser();
+        assertNotNull("3");
     }
 
     // @Test
