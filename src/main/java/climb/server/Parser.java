@@ -15,8 +15,8 @@ import org.w3c.dom.NodeList;
 
 public class Parser {
 
-    public static void parse() {
-
+    public String parse() {
+        StringBuilder sb = new StringBuilder();
         System.out.println("hej");
         try {
             File stocks = new File("Stockholm.kml");
@@ -35,17 +35,19 @@ public class Parser {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element element = (Element) node;
-                    System.out.println(element.toString() + " : " + getValue("*", element));
+                    sb.append(element.toString() + " : " + getValue("*", element));
                     listAllAttributes(element);
                 }
             }
             System.out.println("hej");
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return sb.toString();
     }
 
-    private static String getValue(String tag, Element element) {
+    private String getValue(String tag, Element element) {
         try {
 
             NodeList nodes = element.getElementsByTagName("*").item(0).getChildNodes();
@@ -55,7 +57,7 @@ public class Parser {
             return "inga koordinater";
         }
     }
-    public static void listAllAttributes(Element element) {
+    public void listAllAttributes(Element element) {
 
         System.out.println("List attributes for node: " + element.getNodeName());
 

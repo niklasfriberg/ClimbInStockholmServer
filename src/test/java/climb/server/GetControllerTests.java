@@ -30,11 +30,12 @@ public class GetControllerTests {
         assertEquals("{\"Name\":[\"user\",\"vahab\"],\"Password\":[\"passw\",\"123\"]}", gC.getAllUsers());
     }
 
-    @Test
-    public void parserTest() {
-        Parser p = new Parser();
-        assertNotNull("3");
-    }
+    // @Test
+    // public void parserTest() {
+    //     Parser p = new Parser();
+    //     p.parse();
+    //     assertNotNull("3");
+    // }
 
     // @Test
     // public void getMarkersTest(){
