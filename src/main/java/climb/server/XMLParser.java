@@ -42,11 +42,11 @@ public class XMLParser {
         return document.getElementsByTagName("wpt").item(i).getChildNodes().getLength() >= 4;
     }
 
-    private String getName(int i) {
+    public String getName(int i) {
         return document.getElementsByTagName("wpt").item(i).getChildNodes().item(1).getTextContent();
     }
 
-    private String getDesc(int i) {
+    public String getDesc(int i) {
         return document.getElementsByTagName("wpt").item(i).getChildNodes().item(3).getTextContent().trim();
     }
 

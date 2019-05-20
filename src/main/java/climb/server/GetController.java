@@ -59,6 +59,7 @@ public class GetController {
 		return getFromDB(String.format("SELECT Username FROM FacebookUsers WHERE ID='%s'", id));
 	}
 
+	@GetMapping("/getCragsFromAPI")
 	public String getCragsFromAPI() throws JSONException {
 		XMLParser xml = new XMLParser("Stockholm.gpx");
 		JSONObject crag = null;
