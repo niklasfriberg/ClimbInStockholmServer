@@ -1,5 +1,6 @@
 package climb.server;
 
+import java.io.File;
 import java.sql.*;
 import org.json.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -61,11 +62,11 @@ public class GetController {
 
 	@GetMapping("/getCragsFromAPI")
 	public String getCragsFromAPI() throws JSONException {
-		XMLParser xml = new XMLParser("../src/main/resources/Stockholm.gpx");
+		XMLParser xml = new XMLParser("./src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		sb.append(xml.getDocument());
+		sb.append((new File("").getAbsolutePath()));
 		// for (int i = 0; i < xml.getLength();) {
 		// 	if (xml.isCrag(i)) {
 		// 		crag = new JSONObject();
