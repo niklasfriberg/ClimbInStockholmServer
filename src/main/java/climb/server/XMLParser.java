@@ -25,6 +25,9 @@ public class XMLParser {
 
     //testkod
     public String getDocument(){
+        if (document == null){
+            return "hej jag är null";
+        }
         return document.getXmlEncoding();
     }
 
