@@ -23,6 +23,11 @@ public class XMLParser {
         }
     }
 
+    //testkod
+    public String getDocument(){
+        return document.toString();
+    }
+
     public String get(int i) {
         if (isCrag(i)) {
             return getName(i);
