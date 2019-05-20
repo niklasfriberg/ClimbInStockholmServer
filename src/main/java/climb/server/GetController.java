@@ -3,6 +3,8 @@ package climb.server;
 import java.sql.*;
 import org.json.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.XMLFormatter;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +57,46 @@ public class GetController {
 	@GetMapping("/facebookLogin")
 	public String facebookLogin(@RequestParam(name = "user", required = true) String id) {
 		return getFromDB(String.format("SELECT Username FROM FacebookUsers WHERE ID='%s'", id));
+	}
+
+	public String getCragsFromAPI() throws JSONException {
+		XMLParser xml = new XMLParser("Stockholm.gpx");
+		JSONObject crag = null;
+		JSONObject route;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < xml.getLength();) {
+			if (xml.isCrag(i)) {
+				crag = new JSONObject();
+				crag.put("CragName", xml.get(i));
+				while (!xml.isRoute(i)) {
+					i++;
+				}
+				boolean hasRoutes = false;
+				for (int j = 0; j < 3; j++) {
+
+					if (xml.isRoute(i)) {
+						if (xml.hasCoords(i)) {
+							route = new JSONObject();
+							hasRoutes = true;
+							route.put("Svårighet", "6b+");
+							route.put("RouteName", xml.getName(i));
+							route.put("Beskrivning", xml.getDesc(i));
+							route.put("Höjd", "7");
+							crag.put("Route" , route);
+							crag.put("Longitud", xml.getLng(i));
+							crag.put("Latitud", xml.getLat(i));
+							System.out.println(xml.get(i));
+						}
+					}
+					i++;
+				}
+				if(hasRoutes){
+					sb.append(crag);
+				}
+			}
+			i++;
+		}
+		return sb.toString();
 	}
 
 	public String getCragFromDB(String queryCrag, String queryRoute) {
