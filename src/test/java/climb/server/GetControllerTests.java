@@ -1,9 +1,16 @@
 package climb.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.validation.constraints.AssertTrue;
 
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +30,7 @@ public class GetControllerTests {
     public void loginTest() {
         assertEquals("{\"Name\":\"vahab\"}", gC.login("vahab", "123"));
     }
+
 
     @Test
     public void getUsersTest() {
