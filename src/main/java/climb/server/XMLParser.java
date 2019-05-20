@@ -25,7 +25,7 @@ public class XMLParser {
 
     //testkod
     public String getDocument(){
-        return document.toString();
+        return document.getXmlEncoding();
     }
 
     public String get(int i) {
