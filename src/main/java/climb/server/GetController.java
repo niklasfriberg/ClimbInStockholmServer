@@ -61,7 +61,7 @@ public class GetController {
 
 	@GetMapping("/getCragsFromAPI")
 	public String getCragsFromAPI() throws JSONException {
-		XMLParser xml = new XMLParser("Stockholm.gpx");
+		XMLParser xml = new XMLParser("src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
