@@ -19,13 +19,17 @@ public class GetController {
 		return getFromDB("SELECT * FROM Crag");
 	}
 
-	//Behöver lagas, fixa query
+	// Behöver lagas, fixa query
 	@GetMapping("/getCrag")
 	public String getCrag(@RequestParam(name = "crag", required = true) String crag) {
-		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s'", crag), 
-		String.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName = '%s'", crag));
+		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s'", crag), String
+				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName = '%s'", crag));
 	}
 
+	@GetMapping("/getMessages")
+	public String getAllMessages() {
+		return getFromDB("SELECT * FROM Messages");
+	}
 
 	@GetMapping("/getRoutes")
 	public String getRoutes(@RequestParam(name = "crag", required = true) String crag) {
@@ -45,12 +49,18 @@ public class GetController {
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "user", required = true) String user,
 			@RequestParam(name = "pass", required = true) String passwd) {
-			return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", user, passwd));
+		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", user, passwd));
+	}
+
+	@GetMapping("/facebookLogin")
+	public String facebookLogin(@RequestParam(name = "user", required = true) String id) {
+		return getFromDB(String.format("SELECT Username FROM FacebookUsers WHERE ID='%s'", id));
 	}
 
 	public String getCragFromDB(String queryCrag, String queryRoute) {
 		JSONObject jsonCrag = new JSONObject();
 		JSONObject jsonRoute = new JSONObject();
+		JSONArray jsonRouteArray = new JSONArray();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
@@ -74,8 +84,15 @@ public class GetController {
 				for (int i = 1; i < col + 1; i++) {
 					jsonRoute.put(rsmdRoute.getColumnName(i), rsRoute.getString(i));
 				}
+
 				jsonCrag.accumulate("Route", jsonRoute);
 				jsonRoute = new JSONObject();
+			}
+			// IF single object in ROUTE get object and put to array
+			if (!jsonCrag.get("Route").getClass().equals(JSONArray.class)) {
+				JSONObject temp = jsonCrag.getJSONObject("Route");
+				jsonRouteArray.put(temp);
+				jsonCrag.put("Route", jsonRouteArray);
 			}
 			con.close();
 		} catch (Exception e) {

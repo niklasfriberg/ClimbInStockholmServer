@@ -19,6 +19,36 @@ public class PutController {
 		updateDB(String.format("INSERT INTO Users VALUES ('%s', '%s')", name, password));
 	}
 
+	@GetMapping("/getMessage")
+	public String putMessage(@RequestParam(name = "user", required = false) String user,
+	@RequestParam(name = "message", required = false) String message) {
+		try {updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));}
+		catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
+	@GetMapping("/putFacebookUser")
+	public String putFacebookUser(@RequestParam(name = "id", required = true) String id,
+	@RequestParam(name = "user", required = true) String user) {
+		try {updateDB(String.format("INSERT INTO FacebookUsers VALUES ('%s', '%s')", id, user));}
+		catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
+	@PutMapping("/putMessage")
+	public String putTheMessage(@RequestParam(name = "user", required = false) String user,
+	@RequestParam(name = "message", required = false) String message) {
+		try {updateDB(String.format("INSERT INTO Messages (Username, Message) VALUES ('%s', '%s')", user, message));}
+		catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
 	public boolean updateDB(String query) {
 		int success = 0;
 		try {
