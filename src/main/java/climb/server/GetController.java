@@ -62,43 +62,42 @@ public class GetController {
 
 	@GetMapping("/getCragsFromAPI")
 	public String getCragsFromAPI() throws JSONException {
-		XMLParser xml = new XMLParser("./src/main/resources/Stockholm.gpx");
+		XMLParser xml = new XMLParser("var/lib/tomcat8/src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		sb.append((new File("").getAbsolutePath()));
-		// for (int i = 0; i < xml.getLength();) {
-		// 	if (xml.isCrag(i)) {
-		// 		crag = new JSONObject();
-		// 		crag.put("CragName", xml.get(i));
-		// 		while (!xml.isRoute(i)) {
-		// 			i++;
-		// 		}
-		// 		boolean hasRoutes = false;
-		// 		for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < xml.getLength();) {
+			if (xml.isCrag(i)) {
+				crag = new JSONObject();
+				crag.put("CragName", xml.get(i));
+				while (!xml.isRoute(i)) {
+					i++;
+				}
+				boolean hasRoutes = false;
+				for (int j = 0; j < 3; j++) {
 
-		// 			if (xml.isRoute(i)) {
-		// 				if (xml.hasCoords(i)) {
-		// 					route = new JSONObject();
-		// 					hasRoutes = true;
-		// 					route.put("Svårighet", "6b+");
-		// 					route.put("RouteName", xml.getName(i));
-		// 					route.put("Beskrivning", xml.getDesc(i));
-		// 					route.put("Höjd", "7");
-		// 					crag.put("Route" , route);
-		// 					crag.put("Longitud", xml.getLng(i));
-		// 					crag.put("Latitud", xml.getLat(i));
-		// 					System.out.println(xml.get(i));
-		// 				}
-		// 			}
-		// 			i++;
-		// 		}
-		// 		if(hasRoutes){
-		// 			sb.append(crag);
-		// 		}
-		// 	}
-		// 	i++;
-		// }
+					if (xml.isRoute(i)) {
+						if (xml.hasCoords(i)) {
+							route = new JSONObject();
+							hasRoutes = true;
+							route.put("Svårighet", "6b+");
+							route.put("RouteName", xml.getName(i));
+							route.put("Beskrivning", xml.getDesc(i));
+							route.put("Höjd", "7");
+							crag.put("Route" , route);
+							crag.put("Longitud", xml.getLng(i));
+							crag.put("Latitud", xml.getLat(i));
+							System.out.println(xml.get(i));
+						}
+					}
+					i++;
+				}
+				if(hasRoutes){
+					sb.append(crag);
+				}
+			}
+			i++;
+		}
 		return sb.toString();
 	}
 
