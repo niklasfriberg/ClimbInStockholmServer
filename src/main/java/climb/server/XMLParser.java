@@ -1,7 +1,10 @@
 package climb.server;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,8 +17,8 @@ public class XMLParser {
 
     public XMLParser(String filename) {
         try {
-            URL url = new URL(filename);
-            File file = (File) url.getContent();
+            downloadFile();
+            File file = new File("Stockholm.gpx");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             this.document = db.parse(file);
@@ -25,6 +28,23 @@ public class XMLParser {
         }
     }
 
+    public void downloadFile() throws Exception{
+        URL url = new URL("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
+        URLConnection connection = url.openConnection();
+        InputStream in = connection.getInputStream();
+        FileOutputStream fos = new FileOutputStream(new File("Stockholm.gpx"));
+        byte[] buf = new byte[512];
+        while(true){
+            int len = in.read(buf);
+            if (len == -1) {
+                break;
+            }
+            fos.write(buf, 0, len);
+        }
+        in.close();
+        fos.flush();
+        fos.close();
+    }
     //testkod
     public String getDocument(){
         if (document == null){
