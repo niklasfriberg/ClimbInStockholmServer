@@ -66,7 +66,8 @@ public class GetController {
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		sb.append(xml.getDocument());
+		File test = new File("."+File.pathSeparator+"resources"+File.separator+"Stockholm.gpx");
+		sb.append(test.toPath()+"\n"+test.getName());
 		// for (int i = 0; i < xml.getLength();) {
 		// 	if (xml.isCrag(i)) {
 		// 		crag = new JSONObject();
