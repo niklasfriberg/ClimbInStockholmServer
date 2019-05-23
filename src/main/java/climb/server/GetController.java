@@ -1,6 +1,7 @@
 package climb.server;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.sql.*;
 import org.json.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -66,8 +67,19 @@ public class GetController {
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
-		sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
+		String dirname = "var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources";
+		try {
+		Files.list(new File(dirname).toPath())
+		
+			.limit(10)
+			.forEach(path -> {
+				sb.append(path);
+			});
+		} catch (Exception e) {
+			
+		}
+		// File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
+		// sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
 		// for (int i = 0; i < xml.getLength();) {
 		// 	if (xml.isCrag(i)) {
 		// 		crag = new JSONObject();
