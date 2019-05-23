@@ -67,7 +67,7 @@ public class GetController {
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		String dirname = "build";
+		String dirname = "data0"+File.separator+"Group75";
 		try {
 		Files.list(new File(dirname).toPath())
 		
