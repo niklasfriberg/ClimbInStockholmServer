@@ -67,7 +67,7 @@ public class GetController {
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		String dirname = "var"+File.separator+"lib"+File.separator+"tomcat8";
+		String dirname = "src";
 		try {
 		Files.list(new File(dirname).toPath())
 		
