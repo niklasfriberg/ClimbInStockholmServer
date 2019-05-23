@@ -67,7 +67,7 @@ public class GetController {
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
-		String dirname = "var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources";
+		String dirname = "var"+File.separator+"lib"+File.pathSeparator+"tomcat8";
 		try {
 		Files.list(new File(dirname).toPath())
 		
@@ -76,7 +76,7 @@ public class GetController {
 				sb.append(path);
 			});
 		} catch (Exception e) {
-			
+
 		}
 		// File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
 		// sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
