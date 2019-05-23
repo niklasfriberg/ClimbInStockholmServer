@@ -2,6 +2,7 @@ package climb.server;
 
 import java.io.File;
 import java.net.URL;
+import org.apache.commons.io.FileUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
