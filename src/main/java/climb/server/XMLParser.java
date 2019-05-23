@@ -15,7 +15,7 @@ public class XMLParser {
     public XMLParser(String filename) {
         try {
             URL url = new URL(filename);
-            File file = new File(url.getFile());
+            File file = (File) url.getContent();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             this.document = db.parse(file);
@@ -71,6 +71,8 @@ public class XMLParser {
     }
 
     public int getLength() {
+        if(document == null)
+            return 0;
         return document.getElementsByTagName("wpt").getLength();
     }
 
