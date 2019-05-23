@@ -1,6 +1,7 @@
 package climb.server;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,7 +12,7 @@ public class XMLParser {
 
     private Document document;
 
-    public XMLParser(String filename) {
+    public XMLParser(URL filename) {
         try {
             File file = new File(filename);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

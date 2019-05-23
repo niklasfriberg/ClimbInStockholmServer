@@ -1,6 +1,7 @@
 package climb.server;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Files;
 import java.sql.*;
 import org.json.*;
@@ -62,8 +63,9 @@ public class GetController {
 	}
 
 	@GetMapping("/getCragsFromAPI")
-	public String getCragsFromAPI() throws JSONException {
-		XMLParser xml = new XMLParser("https://github.com/niklasfriberg/ClimbInStockholmServer/blob/master/src/main/resources/Stockholm.gpx");
+	public String getCragsFromAPI() throws Exception {
+		URL url = new URL("https://github.com/niklasfriberg/ClimbInStockholmServer/blob/master/src/main/resources/Stockholm.gpx");
+		XMLParser xml = new XMLParser(url);
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
