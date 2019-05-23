@@ -12,9 +12,9 @@ public class XMLParser {
 
     private Document document;
 
-    public XMLParser(URL filename) {
+    public XMLParser(String filename) {
         try {
-            File file = new File(filename);
+            File file = FileUtils.toFile(new URL(filename));
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             this.document = db.parse(file);

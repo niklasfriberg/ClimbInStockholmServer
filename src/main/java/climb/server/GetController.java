@@ -64,8 +64,7 @@ public class GetController {
 
 	@GetMapping("/getCragsFromAPI")
 	public String getCragsFromAPI() throws Exception {
-		URL url = new URL("https://github.com/niklasfriberg/ClimbInStockholmServer/blob/master/src/main/resources/Stockholm.gpx");
-		XMLParser xml = new XMLParser(url);
+		XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
 		StringBuilder sb = new StringBuilder();
