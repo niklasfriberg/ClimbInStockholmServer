@@ -31,7 +31,7 @@ public class XMLParser {
         URL url = new URL("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
         URLConnection connection = url.openConnection();
         InputStream in = connection.getInputStream();
-        File f = new File("download.gpx");
+        File f = new File("data0"+File.separator+"Group75"+File.separator+"download.gpx");
         FileOutputStream fos = new FileOutputStream(f);
         byte[] buf = new byte[512];
         while(true){
