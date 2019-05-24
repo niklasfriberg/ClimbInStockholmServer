@@ -17,8 +17,7 @@ public class XMLParser {
 
     public XMLParser(String filename) {
         try {
-            downloadFile();
-            File file = new File("Stockholm.gpx");
+            File file = downloadFile();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             this.document = db.parse(file);
@@ -28,11 +27,12 @@ public class XMLParser {
         }
     }
 
-    public void downloadFile() throws Exception{
+    public File downloadFile() throws Exception{
         URL url = new URL("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
         URLConnection connection = url.openConnection();
         InputStream in = connection.getInputStream();
-        FileOutputStream fos = new FileOutputStream(new File("download.gpx"));
+        File f = new File("download.gpx");
+        FileOutputStream fos = new FileOutputStream(f);
         byte[] buf = new byte[512];
         while(true){
             int len = in.read(buf);
@@ -44,6 +44,7 @@ public class XMLParser {
         in.close();
         fos.flush();
         fos.close();
+        return f;
     }
     //testkod
     public String getDocument(){
