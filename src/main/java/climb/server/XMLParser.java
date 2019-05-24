@@ -17,10 +17,13 @@ public class XMLParser {
 
     public XMLParser(String filename) {
         try {
-            File file = downloadFile();
+            URL url = new URL("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
+            URLConnection connection = url.openConnection();
+            InputStream in = connection.getInputStream();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            this.document = db.parse(file);
+            this.document = db.parse(in);
+            in.close();
 
         } catch (Exception e) {
             System.err.println(e.toString());
