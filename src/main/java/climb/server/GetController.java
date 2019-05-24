@@ -97,13 +97,13 @@ public class GetController {
 						if (xml.hasCoords(i)) {
 							route = new JSONObject();
 							hasRoutes = true;
-							route.put("Svårighet", "6b+");
-							route.put("RouteName", xml.getName(i));
-							route.put("Beskrivning", xml.getDesc(i));
-							route.put("Höjd", "7");
-							crag.put("Route" , route);
-							crag.put("Longitud", xml.getLng(i));
-							crag.put("Latitud", xml.getLat(i));
+							route.accumulate("Svårighet", "6b+");
+							route.accumulate("RouteName", xml.getName(i));
+							route.accumulate("Beskrivning", xml.getDesc(i));
+							route.accumulate("Höjd", "7");
+							crag.accumulate("Route" , route);
+							crag.accumulate("Longitud", xml.getLng(i));
+							crag.accumulate("Latitud", xml.getLat(i));
 							System.out.println(xml.get(i));
 						}
 					}
