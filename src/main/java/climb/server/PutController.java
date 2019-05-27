@@ -107,8 +107,10 @@ public class PutController {
 							route.accumulate("Beskrivning", xml.getDesc(i));
 							route.accumulate("Höjd", "7");
 							crag.accumulate("Route" , route);
-							crag.accumulate("Longitud", xml.getLng(i));
-							crag.accumulate("Latitud", xml.getLat(i));
+							// crag.accumulate("Longitud", xml.getLng(i));
+							crag.accumulate("Longitud", 0);
+							// crag.accumulate("Latitud", xml.getLat(i));
+							crag.accumulate("Latitud", 1);
 							System.out.println(xml.get(i));
 						}
 					}
