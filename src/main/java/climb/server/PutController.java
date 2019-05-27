@@ -87,7 +87,7 @@ public class PutController {
 		XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
-		StringBuilder sb = new StringBuilder();
+		JSONArray crags = new JSONArray();
 		for (int i = 0; i < xml.getLength();) {
 			if (xml.isCrag(i)) {
 				crag = new JSONObject();
@@ -115,12 +115,12 @@ public class PutController {
 					i++;
 				}
 				if(hasRoutes){
-					sb.append(crag);
+					crags.put(crag);
 				}
 			}
 			i++;
 		}
-		return new JSONArray(sb.toString());
+		return crags;
 	}
 
 
