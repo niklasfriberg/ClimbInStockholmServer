@@ -21,14 +21,14 @@ public class GetController {
 
 	@GetMapping("/getMarkers")
 	public String getMarkers() {
-		return getFromDB("SELECT * FROM Crag");
+		return getFromDB("SELECT * FROM Crag, Crag_API");
 	}
 
 	// Behöver lagas, fixa query
 	@GetMapping("/getCrag")
 	public String getCrag(@RequestParam(name = "crag", required = true) String crag) {
-		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s'", crag), String
-				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName = '%s'", crag));
+		return getCragFromDB(String.format("SELECT * FROM Crag, Crag_API WHERE CragName = '%s'", crag), String
+				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route, Route_API WHERE CragName = '%s'", crag));
 	}
 
 	@GetMapping("/getMessages")
