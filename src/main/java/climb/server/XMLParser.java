@@ -102,6 +102,60 @@ public class XMLParser {
         return document.getElementsByTagName("wpt").getLength();
     }
 
+    public String getGrade(String str){
+        String[] tokens = str.split("\\s",0);
+        String grade = "";
+        for(int i=0; i < tokens.length; i++){
+            if(Character.isUpperCase(tokens[i].charAt(0))){
+                break;
+            }
+            grade += tokens[i] + " ";
+        }
+        return grade;
+    }
+
+    public String getHeigth(String str){
+        String[] tokens = str.split("\\s",0);
+        String heigth = "";
+        int j = 0;
+        for(int i=0; i < tokens.length; i++){
+            if(tokens[i].startsWith("(")){
+                heigth += tokens[i];
+                j = i+1;
+                break;
+            }
+        }
+        if(j != 0){
+            for(int i = j ; i < tokens.length; i++){
+                heigth += " " + tokens[i];
+            }
+        }
+        return heigth;
+    }
+
+    public String getName(String str){
+        String[] tokens = str.split("\\s",0);
+        String name = "";
+        int j = 0;
+        for(int i=0; i < tokens.length; i++){
+            if(Character.isUpperCase(tokens[i].charAt(0))&& name == ""){
+                name += tokens[i];
+                j = i + 1;
+                break;
+            }
+
+        }
+        for(int i = j ; i < tokens.length; i++){
+            if(tokens[i].startsWith("(")){
+                break;
+            }
+            name += " " + tokens[i];
+
+        }
+        return name;
+    }
+
+
     public boolean hasCoords(int i) {
         return getLat(i) != 0;
     }
