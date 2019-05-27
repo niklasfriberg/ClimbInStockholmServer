@@ -68,7 +68,7 @@ public class PutController {
 				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
 					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
 					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
-					apiResult.getJSONObject(i).getString("CragName"),
+					apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
 					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
 					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"),
 					0,
