@@ -62,61 +62,61 @@ public class GetController {
 		return getFromDB(String.format("SELECT Username FROM FacebookUsers WHERE ID='%s'", id));
 	}
 
-	@GetMapping("/getCragsFromAPI")
-	public String getCragsFromAPI() throws Exception {
-		XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
-		JSONObject crag = null;
-		JSONObject route;
-		StringBuilder sb = new StringBuilder();
-		// String dirname = "data0"+File.separator+"Group75";
-		// try {
-		// Files.list(new File(dirname).toPath())
+	// @GetMapping("/getCragsFromAPI")
+	// public String getCragsFromAPI() throws Exception {
+	// 	XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
+	// 	JSONObject crag = null;
+	// 	JSONObject route;
+	// 	StringBuilder sb = new StringBuilder();
+	// 	// String dirname = "data0"+File.separator+"Group75";
+	// 	// try {
+	// 	// Files.list(new File(dirname).toPath())
 		
-		// 	.limit(10)
-		// 	.forEach(path -> {
-		// 		sb.append(path);
-		// 	});
-		// } catch (Exception e) {
-		// 	sb.append(e.toString());
-		// }
-		// File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
-		// sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
-		if (xml.getLength() == 0)
-			return "No file found!";
-		for (int i = 0; i < xml.getLength();) {
-			if (xml.isCrag(i)) {
-				crag = new JSONObject();
-				crag.put("CragName", xml.get(i));
-				while (!xml.isRoute(i)) {
-					i++;
-				}
-				boolean hasRoutes = false;
-				for (int j = 0; j < 3; j++) {
+	// 	// 	.limit(10)
+	// 	// 	.forEach(path -> {
+	// 	// 		sb.append(path);
+	// 	// 	});
+	// 	// } catch (Exception e) {
+	// 	// 	sb.append(e.toString());
+	// 	// }
+	// 	// File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
+	// 	// sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
+	// 	if (xml.getLength() == 0)
+	// 		return "No file found!";
+	// 	for (int i = 0; i < xml.getLength();) {
+	// 		if (xml.isCrag(i)) {
+	// 			crag = new JSONObject();
+	// 			crag.put("CragName", xml.get(i));
+	// 			while (!xml.isRoute(i)) {
+	// 				i++;
+	// 			}
+	// 			boolean hasRoutes = false;
+	// 			for (int j = 0; j < 3; j++) {
 
-					if (xml.isRoute(i)) {
-						if (xml.hasCoords(i)) {
-							route = new JSONObject();
-							hasRoutes = true;
-							route.accumulate("Svårighet", "6b+");
-							route.accumulate("RouteName", xml.getName(i));
-							route.accumulate("Beskrivning", xml.getDesc(i));
-							route.accumulate("Höjd", "7");
-							crag.accumulate("Route" , route);
-							crag.accumulate("Longitud", xml.getLng(i));
-							crag.accumulate("Latitud", xml.getLat(i));
-							System.out.println(xml.get(i));
-						}
-					}
-					i++;
-				}
-				if(hasRoutes){
-					sb.append(crag);
-				}
-			}
-			i++;
-		}
-		return sb.toString();
-	}
+	// 				if (xml.isRoute(i)) {
+	// 					if (xml.hasCoords(i)) {
+	// 						route = new JSONObject();
+	// 						hasRoutes = true;
+	// 						route.accumulate("Svårighet", "6b+");
+	// 						route.accumulate("RouteName", xml.getName(i));
+	// 						route.accumulate("Beskrivning", xml.getDesc(i));
+	// 						route.accumulate("Höjd", "7");
+	// 						crag.accumulate("Route" , route);
+	// 						crag.accumulate("Longitud", xml.getLng(i));
+	// 						crag.accumulate("Latitud", xml.getLat(i));
+	// 						System.out.println(xml.get(i));
+	// 					}
+	// 				}
+	// 				i++;
+	// 			}
+	// 			if(hasRoutes){
+	// 				sb.append(crag);
+	// 			}
+	// 		}
+	// 		i++;
+	// 	}
+	// 	return sb.toString();
+	// }
 
 	public String getCragFromDB(String queryCrag, String queryRoute) {
 		JSONObject jsonCrag = new JSONObject();
