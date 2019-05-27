@@ -62,7 +62,7 @@ public class PutController {
 				updateDB(String.format("INSERT INTO Crag_API VALUES ('%f', '%f', '%s', '%s')", 
 				apiResult.getJSONObject(i).getDouble("Longitud"), 
 				apiResult.getJSONObject(i).getDouble("Latitud"),
-				apiResult.getJSONObject(i).getString("CragName"),
+				apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
 				"Innehåller 3 routes"
 				));
 				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){

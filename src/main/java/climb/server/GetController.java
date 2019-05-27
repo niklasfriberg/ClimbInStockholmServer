@@ -27,8 +27,8 @@ public class GetController {
 	// Behöver lagas, fixa query
 	@GetMapping("/getCrag")
 	public String getCrag(@RequestParam(name = "crag", required = true) String crag) {
-		return getCragFromDB(String.format("SELECT * FROM Crag UNION SELECT * FROM Crag_API WHERE CragName = '%s'", crag), String
-				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route UNION SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route_API WHERE CragName = '%s'", crag));
+		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s' UNION SELECT * FROM Crag_API WHERE CragName = '%s'", crag, crag), String
+				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName ='%s' UNION SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route_API WHERE CragName = '%s'", crag, crag));
 	}
 
 	@GetMapping("/getMessages")
