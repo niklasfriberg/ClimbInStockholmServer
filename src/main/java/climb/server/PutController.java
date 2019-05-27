@@ -58,7 +58,7 @@ public class PutController {
 	public String updateCragsFromAPI() {
 		try {
 			JSONArray apiResult = getCragsFromAPI();
-			return apiResult.getJSONObject(0).getDouble("Longitud") + "";
+			// return apiResult.getJSONObject(0).getDouble("Longitud") + "";
 			// for(int i = 0; i < apiResult.length(); i++){
 			// 	updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
 			// 	apiResult.getJSONObject(i).getDouble("Longitud"), 
@@ -77,10 +77,15 @@ public class PutController {
 			// 		));
 			// 	}
 			// }
+			updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')",
+			1,
+			2,
+			"hej",
+			"jaja")); 
 		} catch (Exception e) {
 			return e.toString();
 		}
-		// return "success!";
+		return "success!";
 	}
 
 	public JSONArray getCragsFromAPI() throws Exception {
