@@ -86,12 +86,14 @@ public class XMLParser {
 
     public double getLat(int i) {
         String str = document.getElementsByTagName("wpt").item(i).getAttributes().getNamedItem("lat").getTextContent();
-        return str == null || str == "" ? 0d : Double.parseDouble(str);
+        // return str == null || str == "" ? 0d : Double.parseDouble(str);
+        return 2;
     }
 
     public double getLng(int i) {
         String str = document.getElementsByTagName("wpt").item(i).getAttributes().getNamedItem("lon").getTextContent();
-        return str == null || str == "" ? 0d : Double.parseDouble(str);
+        // return str == null || str == "" ? 0d : Double.parseDouble(str);
+        return 1;
     }
 
     public int getLength() {
