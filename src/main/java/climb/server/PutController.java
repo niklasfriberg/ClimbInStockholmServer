@@ -60,8 +60,8 @@ public class PutController {
 			JSONArray apiResult = getCragsFromAPI();
 			for(int i = 0; i < apiResult.length(); i++){
 				updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
-				apiResult.getJSONObject(i).getDouble("Longitud"), 
-				apiResult.getJSONObject(i).getDouble("Latitud"),
+				apiResult.getJSONObject(i).getString("Longitud"), 
+				apiResult.getJSONObject(i).getString("Latitud"),
 				apiResult.getJSONObject(i).getString("CragName"),
 				"Innehåller 3 routes"
 				));
