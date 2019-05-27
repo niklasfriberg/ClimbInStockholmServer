@@ -84,14 +84,14 @@ public class XMLParser {
         return document.getElementsByTagName("wpt").item(i).getChildNodes().item(3).getTextContent().trim();
     }
 
-    public String getLat(int i) {
+    public double getLat(int i) {
         String str = document.getElementsByTagName("wpt").item(i).getAttributes().getNamedItem("lat").getTextContent();
-        return str == null || str == "" ? null : str;
+        return str == null || str == "" ? 0d : Double.parseDouble(str);
     }
 
-    public String getLng(int i) {
+    public double getLng(int i) {
         String str = document.getElementsByTagName("wpt").item(i).getAttributes().getNamedItem("lon").getTextContent();
-        return str == null || str == "" ? null : str;
+        return str == null || str == "" ? 0d : Double.parseDouble(str);
     }
 
     public int getLength() {
@@ -101,7 +101,7 @@ public class XMLParser {
     }
 
     public boolean hasCoords(int i) {
-        return getLat(i) != null;
+        return getLat(i) != 0;
     }
 
 }

@@ -60,19 +60,19 @@ public class PutController {
 			JSONArray apiResult = getCragsFromAPI();
 			for(int i = 0; i < apiResult.length(); i++){
 				updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
-				apiResult.getJSONObject(i).getString("Longitud"), 
-				apiResult.getJSONObject(i).getString("Latitud"),
-				apiResult.getJSONObject(i).getString("CragName"),
+				apiResult.getJSONObject(i).get("Longitud"), 
+				apiResult.getJSONObject(i).get("Latitud"),
+				apiResult.getJSONObject(i).get("CragName"),
 				"Innehåller 3 routes"
 				));
 				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
 					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
-					apiResult.getJSONObject(i).getString("CragName"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"),
+					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("RouteName"),
+					apiResult.getJSONObject(i).get("CragName"),
+					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Höjd"),
+					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Svårighet"),
 					0,
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
+					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Beskrivning")
 					));
 				}
 			}
