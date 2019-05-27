@@ -78,7 +78,7 @@ public class PutController {
 			// 	}
 			// }
 			updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')",
-			1,
+			apiResult.getJSONObject(0).getDouble("Longitud"),
 			2,
 			"hej",
 			"jaja")); 
