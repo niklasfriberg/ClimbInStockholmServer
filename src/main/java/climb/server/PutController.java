@@ -58,28 +58,29 @@ public class PutController {
 	public String updateCragsFromAPI() {
 		try {
 			JSONArray apiResult = getCragsFromAPI();
-			for(int i = 0; i < apiResult.length(); i++){
-				updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
-				apiResult.getJSONObject(i).getDouble("Longitud"), 
-				apiResult.getJSONObject(i).getDouble("Latitud"),
-				apiResult.getJSONObject(i).getString("CragName"),
-				"Innehåller 3 routes"
-				));
-				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
-					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
-					apiResult.getJSONObject(i).getString("CragName"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"),
-					0,
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
-					));
-				}
-			}
+			return apiResult.getJSONObject(0).toString();
+			// for(int i = 0; i < apiResult.length(); i++){
+			// 	updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
+			// 	apiResult.getJSONObject(i).getDouble("Longitud"), 
+			// 	apiResult.getJSONObject(i).getDouble("Latitud"),
+			// 	apiResult.getJSONObject(i).getString("CragName"),
+			// 	"Innehåller 3 routes"
+			// 	));
+			// 	for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
+			// 		updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
+			// 		apiResult.getJSONObject(i).getString("CragName"),
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"),
+			// 		0d,
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
+			// 		));
+			// 	}
+			// }
 		} catch (Exception e) {
 			return e.toString();
 		}
-		return "success!";
+		// return "success!";
 	}
 
 	public JSONArray getCragsFromAPI() throws Exception {
