@@ -58,29 +58,29 @@ public class PutController {
 	public String updateCragsFromAPI() {
 		try {
 			JSONArray apiResult = getCragsFromAPI();
-			for(int i = 0; i < apiResult.length(); i++){
-				updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
-				apiResult.getJSONObject(i).get("Longitud"), 
-				apiResult.getJSONObject(i).get("Latitud"),
-				apiResult.getJSONObject(i).get("CragName"),
-				"Innehåller 3 routes"
-				));
-				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
-					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("RouteName"),
-					apiResult.getJSONObject(i).get("CragName"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Höjd"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Svårighet"),
-					0,
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Beskrivning")
-					));
-				}
-			}
-
+			// for(int i = 0; i < apiResult.length(); i++){
+			// 	updateDB(String.format("INSERT INTO Crag_API VALUES ('%d', '%d', '%s', '%s')", 
+			// 	apiResult.getJSONObject(i).get("Longitud"), 
+			// 	apiResult.getJSONObject(i).get("Latitud"),
+			// 	apiResult.getJSONObject(i).get("CragName"),
+			// 	"Innehåller 3 routes"
+			// 	));
+			// 	for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
+			// 		updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("RouteName"),
+			// 		apiResult.getJSONObject(i).get("CragName"),
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Höjd"),
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Svårighet"),
+			// 		0,
+			// 		apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).get("Beskrivning")
+			// 		));
+			// 	}
+			// }
+				return apiResult.toString();
 		} catch (Exception e) {
 			return e.toString();
 		}
-		return "success!";
+		// return "success!";
 	}
 
 	public JSONArray getCragsFromAPI() throws Exception {
