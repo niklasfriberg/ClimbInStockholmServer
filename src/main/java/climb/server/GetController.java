@@ -48,7 +48,7 @@ public class GetController {
 
 	@GetMapping("/getUser")
 	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String id) {
-		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' UNION SELECT Username FROM FacebookUsers WHERE Username='%s'", id));
+		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' UNION SELECT Username FROM FacebookUsers WHERE Username='%s'", id, id));
 	}
 
 	@GetMapping("/login")
