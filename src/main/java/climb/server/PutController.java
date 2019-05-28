@@ -76,10 +76,18 @@ public class PutController {
 					));
 				}
 			}
+			return String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
+		apiResult.getJSONObject(0).getJSONArray("Route").getJSONObject(1).getString("RouteName"),
+		apiResult.getJSONObject(0).getString("CragName").substring(6).trim(),
+		apiResult.getJSONObject(0).getJSONArray("Route").getJSONObject(1).getString("Höjd"),
+		apiResult.getJSONObject(0).getJSONArray("Route").getJSONObject(1).getString("Svårighet"),
+		0,
+		apiResult.getJSONObject(0).getJSONArray("Route").getJSONObject(1).getString("Beskrivning")
+		);
 		} catch (Exception e) {
 			return e.toString();
 		}
-		return "success!";
+		// return "success!";
 	}
 
 	public JSONArray getCragsFromAPI() throws Exception {
