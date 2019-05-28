@@ -101,10 +101,12 @@ public class PutController {
 						if (xml.hasCoords(i)) {
 							route = new JSONObject();
 							hasRoutes = true;
-							route.accumulate("Svårighet", xml.getGrade(i));
+							route.accumulate("Svårighet", //xml.getGrade(i));
+							"6b");
 							route.accumulate("RouteName", xml.getName(i));
 							route.accumulate("Beskrivning", xml.getDesc(i));
-							route.accumulate("Höjd", xml.getHeigth(i));
+							route.accumulate("Höjd", //xml.getHeigth(i));
+							"10m");
 							crag.accumulate("Route" , route);
 							crag.put("Longitud", xml.getLng(i));
 							crag.put("Latitud", xml.getLat(i));
