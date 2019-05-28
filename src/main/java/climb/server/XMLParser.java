@@ -102,8 +102,8 @@ public class XMLParser {
         return document.getElementsByTagName("wpt").getLength();
     }
 
-    public String getGrade(String str){
-        String[] tokens = str.split("\\s",0);
+    public String getGrade(int index){
+        String[] tokens = getName(index).split("\\s",0);
         String grade = "";
         for(int i=0; i < tokens.length; i++){
             if(Character.isUpperCase(tokens[i].charAt(0))){
@@ -114,8 +114,8 @@ public class XMLParser {
         return grade;
     }
 
-    public String getHeigth(String str){
-        String[] tokens = str.split("\\s",0);
+    public String getHeigth(int index){
+        String[] tokens = getName(index).split("\\s",0);
         String heigth = "";
         int j = 0;
         for(int i=0; i < tokens.length; i++){
