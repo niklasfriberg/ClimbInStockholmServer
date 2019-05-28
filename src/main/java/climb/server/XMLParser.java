@@ -104,7 +104,7 @@ public class XMLParser {
 
     public String getGrade(int index){
         String trimmedString = getName(index).trim();
-        trimmedString.replaceAll("\\*", "");
+        trimmedString = trimmedString.replaceAll("\\*", "");
         String[] tokens = trimmedString.split("\\s",0);
         String grade = "";
         try {
