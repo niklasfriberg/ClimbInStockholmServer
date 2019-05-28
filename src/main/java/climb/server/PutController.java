@@ -101,8 +101,7 @@ public class PutController {
 						if (xml.hasCoords(i)) {
 							route = new JSONObject();
 							hasRoutes = true;
-							route.accumulate("Svårighet", //xml.getGrade(i));
-							"6b");
+							route.accumulate("Svårighet", xml.getGrade(i));
 							route.accumulate("RouteName", xml.getName(i));
 							route.accumulate("Beskrivning", xml.getDesc(i));
 							route.accumulate("Höjd", //xml.getHeigth(i));
