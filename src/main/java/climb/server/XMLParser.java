@@ -104,6 +104,7 @@ public class XMLParser {
 
     public String getGrade(int index){
         String trimmedString = getName(index).trim();
+        trimmedString.replaceAll("*", "");
         String[] tokens = trimmedString.split("\\s",0);
         String grade = "";
         try {
@@ -114,7 +115,7 @@ public class XMLParser {
             grade += tokens[i] + " ";
         }
     } catch (Exception e){
-        return e.toString();
+        return "No grade";
     }
         return grade;
     }
