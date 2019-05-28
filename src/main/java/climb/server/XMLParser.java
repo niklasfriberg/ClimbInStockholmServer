@@ -105,14 +105,13 @@ public class XMLParser {
     public String getGrade(int index){
         String[] tokens = getName(index).split("\\s",0);
         String grade = "";
+        for(int i=0; i < tokens.length - 1; i++){
+            if(Character.isUpperCase(tokens[i].charAt(0))){
+                break;
+            }
+            grade += tokens[i] + " ";
+        }
         return grade;
-        // for(int i=0; i < tokens.length; i++){
-        //     if(Character.isUpperCase(tokens[i].charAt(0))){
-        //         break;
-        //     }
-        //     grade += tokens[i] + " ";
-        // }
-        // return grade;
     }
 
     public String getHeigth(int index){
