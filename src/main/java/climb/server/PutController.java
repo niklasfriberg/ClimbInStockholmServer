@@ -77,7 +77,7 @@ public class PutController {
 				}
 			}
 		} catch (Exception e) {
-			return e.toString()+"\n Exception from " + e.getStackTrace();
+			return e.toString()+"\n Exception from " + e.getCause();
 		}
 		return "success!";
 	}
