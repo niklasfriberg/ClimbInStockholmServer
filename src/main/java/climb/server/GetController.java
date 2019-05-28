@@ -41,11 +41,6 @@ public class GetController {
 		return getFromDB(String.format("SELECT * FROM Route WHERE CragName = '%s'", crag));
 	}
 
-	@GetMapping("/allUsers")
-	public String getAllUsers() {
-		return getFromDB("SELECT * FROM Users");
-	}
-
 	@GetMapping("/getUser")
 	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String id) {
 		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' UNION SELECT Username FROM FacebookUsers WHERE Username='%s'", id, id));
