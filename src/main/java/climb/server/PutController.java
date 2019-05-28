@@ -104,8 +104,7 @@ public class PutController {
 							route.accumulate("Svårighet", xml.getGrade(i));
 							route.accumulate("RouteName", xml.getName(i));
 							route.accumulate("Beskrivning", xml.getDesc(i));
-							route.accumulate("Höjd", //xml.getHeigth(i));
-							"10m");
+							route.accumulate("Höjd", xml.getHeigth(i));
 							crag.accumulate("Route" , route);
 							crag.put("Longitud", xml.getLng(i));
 							crag.put("Latitud", xml.getLat(i));
