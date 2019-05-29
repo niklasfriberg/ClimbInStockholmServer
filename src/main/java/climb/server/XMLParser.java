@@ -156,18 +156,19 @@ public class XMLParser {
         for (int i = 0; i < tokens.length; i++) {
             if (Character.isUpperCase(tokens[i].charAt(0)) && name == "") {
                 name += tokens[i];
-                // j = i + 1;
+                j = i + 1;
                 break;
             }
 
         }
-        // for (int i = j; i < tokens.length; i++) {
-        //     if (tokens[i].startsWith("(")) {
-        //         break;
-        //     }
-            //name += " " + tokens[i];
-            return name;
+        for (int i = j; i < tokens.length; i++) {
+            if (tokens[i].startsWith("(")) {
+                break;
+            }
+            name += " " + tokens[i];
         }
+        return name;
+    }
         
 
     public boolean hasCoords(int i) {
