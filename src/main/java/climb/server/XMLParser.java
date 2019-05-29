@@ -149,8 +149,8 @@ public class XMLParser {
     }
 
     public String getName(String str) {
-        str = str.replaceAll("\\*", "");
-        String[] tokens = str.split("\\s", 0);
+        String trimmedString = str.replaceAll("\\*", "").trim();
+        String[] tokens = trimmedString.split("\\s", 0);
         String name = "";
         int j = 0;
         for (int i = 0; i < tokens.length; i++) {
