@@ -24,11 +24,25 @@ public class GetController {
 		return getFromDB("SELECT * FROM Crag UNION SELECT * FROM Crag_API");
 	}
 
+	public String getMarkersMock() {
+		return getFromDB("SELECT * FROM Crag_Mock");
+	}
+
 	// Behöver lagas, fixa query
 	@GetMapping("/getCrag")
 	public String getCrag(@RequestParam(name = "crag", required = true) String crag) {
-		return getCragFromDB(String.format("SELECT * FROM Crag WHERE CragName = '%s' UNION SELECT * FROM Crag_API WHERE CragName = '%s'", crag, crag), String
-				.format("SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName ='%s' UNION SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route_API WHERE CragName = '%s'", crag, crag));
+		return getCragFromDB(
+				String.format(
+						"SELECT * FROM Crag WHERE CragName = '%s' UNION SELECT * FROM Crag_API WHERE CragName = '%s'",
+						crag, crag),
+				String.format(
+						"SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route WHERE CragName ='%s' UNION SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route_API WHERE CragName = '%s'",
+						crag, crag));
+	}
+
+	public String getCragMock(@RequestParam(name = "crag", required = true) String crag) {
+		return getCragFromDB(String.format("SELECT * FROM Crag_Mock WHERE CragName = '%s'", crag), String.format(
+				"SELECT RouteName, Höjd, Svårighet, Rep, Beskrivning FROM Route_Mock WHERE CragName ='%s'", crag));
 	}
 
 	@GetMapping("/getMessages")
@@ -36,14 +50,21 @@ public class GetController {
 		return getFromDB("SELECT * FROM Messages");
 	}
 
-	@GetMapping("/getRoutes")
-	public String getRoutes(@RequestParam(name = "crag", required = true) String crag) {
-		return getFromDB(String.format("SELECT * FROM Route WHERE CragName = '%s'", crag));
+	public String getAllMessagesMock() {
+		return getFromDB("SELECT UserName, Message FROM Messages_Mock");
 	}
 
 	@GetMapping("/getUser")
 	public String getUser(@RequestParam(name = "id", required = true, defaultValue = "0") String id) {
-		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' UNION SELECT Username FROM FacebookUsers WHERE Username='%s'", id, id));
+		return getFromDB(String.format(
+				"SELECT Name FROM Users WHERE Name='%s' UNION SELECT Username FROM FacebookUsers WHERE Username='%s'",
+				id, id));
+	}
+
+	public String getUserMock(@RequestParam(name = "id", required = true, defaultValue = "0") String id) {
+		return getFromDB(String.format(
+				"SELECT Name FROM Users_Mock WHERE Name='%s' UNION SELECT Username FROM FacebookUsers_Mock WHERE Username='%s'",
+				id, id));
 	}
 
 	@GetMapping("/login")
@@ -52,65 +73,76 @@ public class GetController {
 		return getFromDB(String.format("SELECT Name FROM Users WHERE Name='%s' AND Password='%s'", user, passwd));
 	}
 
+	public String loginMock(@RequestParam(name = "user", required = true) String user,
+			@RequestParam(name = "pass", required = true) String passwd) {
+		return getFromDB(String.format("SELECT Name FROM Users_Mock WHERE Name='%s' AND Password='%s'", user, passwd));
+	}
+
 	@GetMapping("/facebookLogin")
 	public String facebookLogin(@RequestParam(name = "user", required = true) String id) {
 		return getFromDB(String.format("SELECT Username FROM FacebookUsers WHERE ID='%s'", id));
 	}
 
+	public String facebookLoginMock(@RequestParam(name = "user", required = true) String id) {
+		return getFromDB(String.format("SELECT Username FROM FacebookUsers_Mock WHERE ID='%s'", id));
+	}
+
 	// @GetMapping("/getCragsFromAPI")
 	// public String getCragsFromAPI() throws Exception {
-	// 	XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
-	// 	JSONObject crag = null;
-	// 	JSONObject route;
-	// 	StringBuilder sb = new StringBuilder();
-	// 	// String dirname = "data0"+File.separator+"Group75";
-	// 	// try {
-	// 	// Files.list(new File(dirname).toPath())
-		
-	// 	// 	.limit(10)
-	// 	// 	.forEach(path -> {
-	// 	// 		sb.append(path);
-	// 	// 	});
-	// 	// } catch (Exception e) {
-	// 	// 	sb.append(e.toString());
-	// 	// }
-	// 	// File test = new File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
-	// 	// sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
-	// 	if (xml.getLength() == 0)
-	// 		return "No file found!";
-	// 	for (int i = 0; i < xml.getLength();) {
-	// 		if (xml.isCrag(i)) {
-	// 			crag = new JSONObject();
-	// 			crag.put("CragName", xml.get(i));
-	// 			while (!xml.isRoute(i)) {
-	// 				i++;
-	// 			}
-	// 			boolean hasRoutes = false;
-	// 			for (int j = 0; j < 3; j++) {
+	// XMLParser xml = new
+	// XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
+	// JSONObject crag = null;
+	// JSONObject route;
+	// StringBuilder sb = new StringBuilder();
+	// // String dirname = "data0"+File.separator+"Group75";
+	// // try {
+	// // Files.list(new File(dirname).toPath())
 
-	// 				if (xml.isRoute(i)) {
-	// 					if (xml.hasCoords(i)) {
-	// 						route = new JSONObject();
-	// 						hasRoutes = true;
-	// 						route.accumulate("Svårighet", "6b+");
-	// 						route.accumulate("RouteName", xml.getName(i));
-	// 						route.accumulate("Beskrivning", xml.getDesc(i));
-	// 						route.accumulate("Höjd", "7");
-	// 						crag.accumulate("Route" , route);
-	// 						crag.accumulate("Longitud", xml.getLng(i));
-	// 						crag.accumulate("Latitud", xml.getLat(i));
-	// 						System.out.println(xml.get(i));
-	// 					}
-	// 				}
-	// 				i++;
-	// 			}
-	// 			if(hasRoutes){
-	// 				sb.append(crag);
-	// 			}
-	// 		}
-	// 		i++;
-	// 	}
-	// 	return sb.toString();
+	// // .limit(10)
+	// // .forEach(path -> {
+	// // sb.append(path);
+	// // });
+	// // } catch (Exception e) {
+	// // sb.append(e.toString());
+	// // }
+	// // File test = new
+	// File("var"+File.separator+"lib"+File.pathSeparator+"tomcat8"+File.pathSeparator+"src"+File.separator+"main"+File.pathSeparator+"resources"+File.pathSeparator+"Stockholm.gpx");
+	// // sb.append(test.exists()+"\n"+new File("").getAbsolutePath());
+	// if (xml.getLength() == 0)
+	// return "No file found!";
+	// for (int i = 0; i < xml.getLength();) {
+	// if (xml.isCrag(i)) {
+	// crag = new JSONObject();
+	// crag.put("CragName", xml.get(i));
+	// while (!xml.isRoute(i)) {
+	// i++;
+	// }
+	// boolean hasRoutes = false;
+	// for (int j = 0; j < 3; j++) {
+
+	// if (xml.isRoute(i)) {
+	// if (xml.hasCoords(i)) {
+	// route = new JSONObject();
+	// hasRoutes = true;
+	// route.accumulate("Svårighet", "6b+");
+	// route.accumulate("RouteName", xml.getName(i));
+	// route.accumulate("Beskrivning", xml.getDesc(i));
+	// route.accumulate("Höjd", "7");
+	// crag.accumulate("Route" , route);
+	// crag.accumulate("Longitud", xml.getLng(i));
+	// crag.accumulate("Latitud", xml.getLat(i));
+	// System.out.println(xml.get(i));
+	// }
+	// }
+	// i++;
+	// }
+	// if(hasRoutes){
+	// sb.append(crag);
+	// }
+	// }
+	// i++;
+	// }
+	// return sb.toString();
 	// }
 
 	public String getCragFromDB(String queryCrag, String queryRoute) {

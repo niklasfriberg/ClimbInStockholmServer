@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PutController {
 
+	//Är egentligen putUser.
 	@PutMapping("/updateUser")
 	public void putUser(@RequestParam(name = "name", required = true) String name,
 			@RequestParam(name = "passwd", required = true) String password) {
 		updateDB(String.format("INSERT INTO Users VALUES ('%s', '%s')", name, password));
+	}
+
+	public void putUserMock(@RequestParam(name = "name", required = true) String name,
+			@RequestParam(name = "passwd", required = true) String password) {
+		updateDB(String.format("INSERT INTO Users_Mock VALUES ('%s', '%s')", name, password));
 	}
 
 	@GetMapping("/getMessage")
@@ -43,6 +49,16 @@ public class PutController {
 		return "nothing";
 	}
 
+	public String putFacebookUserMock(@RequestParam(name = "id", required = true) String id,
+			@RequestParam(name = "user", required = true) String user) {
+		try {
+			updateDB(String.format("INSERT INTO FacebookUsers_Mock VALUES ('%s', '%s')", id, user));
+		} catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
 	@PutMapping("/putMessage")
 	public String putTheMessage(@RequestParam(name = "user", required = false) String user,
 			@RequestParam(name = "message", required = false) String message) {
@@ -54,26 +70,57 @@ public class PutController {
 		return "nothing";
 	}
 
+	public String putTheMessageMock(@RequestParam(name = "user", required = false) String user,
+			@RequestParam(name = "message", required = false) String message) {
+		try {
+			updateDB(String.format("INSERT INTO Messages_Mock (Username, Message) VALUES ('%s', '%s')", user, message));
+		} catch (Exception e) {
+			return e.toString();
+		}
+		return "nothing";
+	}
+
 	@GetMapping("/updateCragsFromAPI")
 	public String updateCragsFromAPI() {
 		try {
 			JSONArray apiResult = getCragsFromAPI();
-			for(int i = 0; i < apiResult.length(); i++){
-				updateDB(String.format("INSERT INTO Crag_API VALUES ('%f', '%f', '%s', '%s')", 
-				apiResult.getJSONObject(i).getDouble("Longitud"), 
-				apiResult.getJSONObject(i).getDouble("Latitud"),
-				apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
-				"Innehåller 3 routes"
-				));
-				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
-					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
-					apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"),
-					0,
-					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
-					));
+			for (int i = 0; i < apiResult.length(); i++) {
+				updateDB(String.format("INSERT INTO Crag_API VALUES ('%f', '%f', '%s', '%s')",
+						apiResult.getJSONObject(i).getDouble("Longitud"),
+						apiResult.getJSONObject(i).getDouble("Latitud"),
+						apiResult.getJSONObject(i).getString("CragName").substring(6).trim(), "Innehåller 3 routes"));
+				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++) {
+					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')",
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
+							apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"), 0,
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j)
+									.getString("Beskrivning")));
+				}
+			}
+		} catch (Exception e) {
+			return e.toString();
+		}
+		return "success!";
+	}
+
+	public String updateCragsFromAPIMock() {
+		try {
+			JSONArray apiResult = getCragsFromAPI();
+			for (int i = 0; i < apiResult.length(); i++) {
+				updateDB(String.format("INSERT INTO Crag_Mock VALUES ('%f', '%f', '%s', '%s')",
+						apiResult.getJSONObject(i).getDouble("Longitud"),
+						apiResult.getJSONObject(i).getDouble("Latitud"),
+						apiResult.getJSONObject(i).getString("CragName").substring(6).trim(), "Innehåller 3 routes"));
+				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++) {
+					updateDB(String.format("INSERT INTO Route_Mock VALUES ('%s', '%s', '%s', '%s', '%d', '%s')",
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("RouteName"),
+							apiResult.getJSONObject(i).getString("CragName").substring(6).trim(),
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd"),
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Svårighet"), 0,
+							apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j)
+									.getString("Beskrivning")));
 				}
 			}
 		} catch (Exception e) {
@@ -83,7 +130,8 @@ public class PutController {
 	}
 
 	public JSONArray getCragsFromAPI() throws Exception {
-		XMLParser xml = new XMLParser("https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
+		XMLParser xml = new XMLParser(
+				"https://raw.githubusercontent.com/niklasfriberg/ClimbInStockholmServer/master/src/main/resources/Stockholm.gpx");
 		JSONObject crag = null;
 		JSONObject route;
 		JSONArray crags = new JSONArray();
@@ -105,7 +153,7 @@ public class PutController {
 							route.accumulate("RouteName", xml.getName(i));
 							route.accumulate("Beskrivning", xml.getDesc(i));
 							route.accumulate("Höjd", "7");
-							crag.accumulate("Route" , route);
+							crag.accumulate("Route", route);
 							crag.put("Longitud", xml.getLng(i));
 							crag.put("Latitud", xml.getLat(i));
 							System.out.println(xml.get(i));
@@ -113,7 +161,7 @@ public class PutController {
 					}
 					i++;
 				}
-				if(hasRoutes){
+				if (hasRoutes) {
 					crags.put(crag);
 				}
 			}
@@ -122,14 +170,12 @@ public class PutController {
 		return crags;
 	}
 
-
-
-	public boolean updateCrag(String query){
+	public boolean updateCrag(String query) {
 
 		return false;
 	}
 
-	public boolean updateRoute(String query){
+	public boolean updateRoute(String query) {
 
 		return false;
 	}

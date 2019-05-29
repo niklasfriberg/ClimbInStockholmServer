@@ -14,9 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeleteController {
 
 	@PutMapping("/deleteUser")
-	public void deleteUser(@RequestParam(name = "name", required = true) String name,
-			@RequestParam(name = "passwd", required = true) String password) {
-		updateDB(String.format("DELETE FROM Users WHERE Name = '%s'", name, password));
+	public void deleteUser(@RequestParam(name = "name", required = true) String name){
+		updateDB(String.format("DELETE FROM Users WHERE Name = '%s'", name));
+		updateDB(String.format("DELETE FROM FacebookUsers WHERE Name = '%s'", name));
+	}
+
+	public void deleteUserMock(@RequestParam(name = "name", required = true) String name){
+		updateDB(String.format("DELETE FROM Users_Mock WHERE Name = '%s'", name));
+		updateDB(String.format("DELETE FROM FacebookUsers_Mock WHERE Name = '%s'", name));
+	}
+
+	@PutMapping("/deleteCrag")
+	public void deleteCrag(@RequestParam(name = "crag", required = true) String crag){
+		updateDB(String.format("DELETE FROM Crag WHERE CragName = '%s'", crag));
+		updateDB(String.format("DELETE FROM Crag_API WHERE CragName = '%s'", crag));
+	}
+
+	public void deleteCragMock(@RequestParam(name = "crag", required = true) String crag){
+		updateDB(String.format("DELETE FROM Crag_Mock WHERE CragName = '%s'", crag));
+	}
+
+	@PutMapping("/deleteRoute")
+	public void deleteRoute(@RequestParam(name = "route", required = true) String route){
+		updateDB(String.format("DELETE FROM Route WHERE RouteName = '%s'", route));
+		updateDB(String.format("DELETE FROM Route_API WHERE RouteName = '%s'", route));
+	}
+
+	public void deleteRouteMock(@RequestParam(name = "route", required = true) String route){
+		updateDB(String.format("DELETE FROM Route_Mock WHERE RouteName = '%s'", route));
 	}
 
 	public boolean updateDB(String query) {
