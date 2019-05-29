@@ -167,7 +167,7 @@ public class XMLParser {
             }
             name += " " + tokens[i];
         }
-        return name;
+        return name + " test";
     }
         
 
