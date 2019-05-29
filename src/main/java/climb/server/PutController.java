@@ -67,7 +67,7 @@ public class PutController {
 				));
 				for (int j = 0; j < apiResult.getJSONObject(i).getJSONArray("Route").length(); j++){
 					int needsRope = 0;
-					if(apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd") != null)
+					if(apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Höjd") != "")
 						needsRope = 1;
 					
 					updateDB(String.format("INSERT INTO Route_API VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", 
@@ -78,7 +78,6 @@ public class PutController {
 					needsRope,
 					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
 					));
-					needsRope = 0;
 				}
 			}
 		} catch (Exception e) {
