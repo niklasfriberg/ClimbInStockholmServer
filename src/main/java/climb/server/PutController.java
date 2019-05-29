@@ -78,6 +78,7 @@ public class PutController {
 					needsRope,
 					apiResult.getJSONObject(i).getJSONArray("Route").getJSONObject(j).getString("Beskrivning")
 					));
+					needsRope = 0;
 				}
 			}
 		} catch (Exception e) {
