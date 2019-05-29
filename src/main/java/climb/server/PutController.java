@@ -102,7 +102,7 @@ public class PutController {
 							route = new JSONObject();
 							hasRoutes = true;
 							route.accumulate("Svårighet", xml.getGrade(i));
-							route.accumulate("RouteName", xml.getName(i).replaceAll("\\*", ""));
+							route.accumulate("RouteName", xml.getName(xml.getName(i).replaceAll("\\*", "")));
 							route.accumulate("Beskrivning", xml.getDesc(i));
 							route.accumulate("Höjd", xml.getHeigth(i));
 							crag.accumulate("Route" , route);
