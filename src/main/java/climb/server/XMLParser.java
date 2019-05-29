@@ -161,13 +161,7 @@ public class XMLParser {
             }
 
         }
-        for (int i = j; i < tokens.length; i++) {
-            if (tokens[i].startsWith("(")) {
-                break;
-            }
-            name += " " + tokens[i];
-        }
-        return name + " test";
+        return " test";
     }
         
 
